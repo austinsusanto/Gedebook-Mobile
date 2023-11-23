@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gedebook_mobile/screens/gedebook_form.dart';
 import 'dart:math';
 
+import 'package:gedebook_mobile/screens/list_product.dart';
+
 class ShopCard extends StatelessWidget {
 	final ShopItem item;
 
@@ -29,6 +31,10 @@ class ShopCard extends StatelessWidget {
 								builder: (context) => const ShopFormPage(),
 							));
 					}
+          else if (item.name == "Lihat Produk") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ProductPage()));
+          }
 
 				},
 				child: Container(

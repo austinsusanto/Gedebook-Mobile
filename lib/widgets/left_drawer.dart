@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gedebook_mobile/screens/gedebook_form.dart';
+import 'package:gedebook_mobile/screens/list_product.dart';
 import 'package:gedebook_mobile/screens/menu.dart';
 
 class LeftDrawer extends StatelessWidget {
@@ -60,6 +61,17 @@ class LeftDrawer extends StatelessWidget {
 						));
 				},
 			),
+      ListTile(
+          leading: const Icon(Icons.shopping_basket),
+          title: const Text('Daftar Produk'),
+          onTap: () {
+              // Route menu ke halaman produk
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProductPage()),
+              );
+          },
+      ),
         ],
       ),
     );

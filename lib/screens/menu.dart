@@ -5,7 +5,7 @@ import 'package:gedebook_mobile/widgets/book_card.dart';
 class MyHomePage extends StatelessWidget {
 		MyHomePage({Key? key}) : super(key: key);
 		
-		final List<ShopItem> items = [
+    final List<ShopItem> items = [
 			ShopItem("Lihat Item", Icons.checklist),
 			ShopItem("Tambah Produk", Icons.add_shopping_cart),
 			ShopItem("Logout", Icons.logout),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gedebook_mobile/screens/book_detail.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:gedebook_mobile/models/product.dart';
@@ -14,7 +15,7 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
 Future<List<Product>> fetchProduct() async {
     var url = Uri.parse(
-        'http://localhost:8000/json/');
+        'http://10.0.2.2:8000/json/');
     var response = await http.get(
         url,
         headers: {"Content-Type": "application/json"},
@@ -24,13 +25,13 @@ Future<List<Product>> fetchProduct() async {
     var data = jsonDecode(utf8.decode(response.bodyBytes));
 
     // melakukan konversi data json menjadi object Product
-    List<Product> list_product = [];
+    List<Product> listProduct = [];
     for (var d in data) {
         if (d != null) {
-            list_product.add(Product.fromJson(d));
+            listProduct.add(Product.fromJson(d));
         }
     }
-    return list_product;
+    return listProduct;
 }
 
 @override
@@ -64,25 +65,32 @@ Widget build(BuildContext context) {
                                 margin: const EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 12),
                                 padding: const EdgeInsets.all(20.0),
-                                child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                    Text(
-                                    "${snapshot.data![index].fields.name}",
-                                    style: const TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
-                                    ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Text("${snapshot.data![index].fields.price}"),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                        "${snapshot.data![index].fields.description}")
-                                ],
-                                ),
-                            ));
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.pushReplacement(context,
+                                      MaterialPageRoute(
+                                        builder: (context) => BookPage(snapshot.data![index])));
+                                  },
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                        Text(
+                                        "${snapshot.data![index].fields.name}",
+                                        style: const TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold,
+                                        ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text("Tersedia ${snapshot.data![index].fields.amount} Buah"),
+                                        const SizedBox(height: 10),
+                                        Text("${snapshot.data![index].fields.description}")
+                                    ],
+                                  )
+                                )
+                            )
+                      );
                     }
                 }
             }));
